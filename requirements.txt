@@ -2,3 +2,15 @@ pandas
 numpy
 matplotlib
 scikit-learn
+statsmodels
+prophet
+xgboost
+unidecode
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# Environment / secrets management
+python-dotenv
+langchain_groq
