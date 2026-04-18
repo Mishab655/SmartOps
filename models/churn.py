@@ -1,113 +1,137 @@
-# from sklearn.model_selection import train_test_split
-# from sklearn.preprocessing import StandardScaler
-# def prepare_churn_data(churn_df):
+"""
+Churn Risk Analysis using RFM Scoring
 
-#     X = churn_df.drop(["customer_unique_id", "churn_label"], axis=1)
-#     y = churn_df["churn_label"]
+Approach: Unsupervised RFM segmentation instead of a binary classifier.
 
-#     X_train, X_test, y_train, y_test = train_test_split(
-#         X, y, test_size=0.2, stratify=y, random_state=42
-#     )
+Why: Olist data is structurally one-purchase-dominant. ~95% of customers
+never repeat, making any binary churn label overwhelmingly imbalanced.
+A supervised classifier on such data essentially learns a constant function.
 
-#     scaler = StandardScaler()
-#     X_train = scaler.fit_transform(X_train)
-#     X_test = scaler.transform(X_test)
-
-#     return X_train, X_test, y_train, y_test
-# X_train, X_test, y_train, y_test = prepare_churn_data(df)
-
-
-# from sklearn.linear_model import LogisticRegression
-# from sklearn.ensemble import RandomForestClassifier
-# from xgboost import XGBClassifier
-# from sklearn.metrics import roc_auc_score, f1_score
-
-# def train_churn_models(X_train, X_test, y_train, y_test):
-
-#     models = {
-#         "Logistic": LogisticRegression(max_iter=500),
-#         "RandomForest": RandomForestClassifier(n_estimators=200),
-#         "XGBoost": XGBClassifier(n_estimators=200)
-#     }
-
-#     results = {}
-
-#     for name, model in models.items():
-#         model.fit(X_train, y_train)
-#         preds = model.predict(X_test)
-#         prob = model.predict_proba(X_test)[:, 1]
-
-#         results[name] = {
-#             "ROC_AUC": roc_auc_score(y_test, prob),
-#             "F1": f1_score(y_test, preds)
-#         }
-
-#     return results
-# result = train_churn_models(X_train, X_test, y_train, y_test)
-# print(result)
-
+Instead, we:
+  1. Build RFM features (Recency, Frequency, Monetary) for repeat customers.
+  2. Score each dimension on a 1-3 quantile scale.
+  3. Derive a composite rfm_risk_score (3-9) and assign a churn_risk band:
+       - High   (score 3-5): Customer is inactive, low value, infrequent
+       - Medium (score 6-7): Customer is moderately engaged
+       - Low    (score 8-9): Recent, frequent, high-value loyal customer
+  4. Display segment distribution and export the scored dataset.
+"""
 
 import pandas as pd
-df = pd.read_csv('ML_datasets/churn_df.csv')
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from core.db import get_db_engine
+from datetime import datetime
 
-def prepare_churn_data(churn_df):
 
-    X = churn_df.drop(["customer_unique_id", "churn_label"], axis=1)
-    y = churn_df["churn_label"]
+def load_and_validate(filepath=None):
+    if filepath is None:
+        filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../data/ML_datasets/churn_df.csv')
+    df = pd.read_csv(filepath)
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, stratify=y, random_state=42
+    required_cols = {
+        "customer_unique_id", "recency", "frequency", "monetary",
+        "r_score", "f_score", "m_score", "rfm_risk_score", "churn_risk"
+    }
+    assert required_cols.issubset(df.columns), (
+        "churn_df.csv is missing expected RFM columns. Re-run data_prep.ipynb."
+    )
+    return df
+
+
+def print_segment_summary(df):
+    print("=" * 50)
+    print("RFM Churn Risk Segment Distribution")
+    print("=" * 50)
+
+    segment_summary = (
+        df.groupby("churn_risk", observed=True)
+        .agg(
+            customer_count=("customer_unique_id", "count"),
+            avg_recency=("recency", "mean"),
+            avg_frequency=("frequency", "mean"),
+            avg_monetary=("monetary", "mean"),
+            avg_rfm_score=("rfm_risk_score", "mean")
+        )
+        .reset_index()
     )
 
-    scaler = StandardScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
+    segment_order = ["High", "Medium", "Low"]
+    segment_summary["churn_risk"] = pd.Categorical(
+        segment_summary["churn_risk"], categories=segment_order, ordered=True
+    )
+    segment_summary = segment_summary.sort_values("churn_risk")
+    print(segment_summary.to_string(index=False))
 
-    return X_train, X_test, y_train, y_test
+    print("\nRFM Score Statistics:")
+    print(df[["r_score", "f_score", "m_score", "rfm_risk_score"]].describe().round(2))
 
-X_train, X_test, y_train, y_test = prepare_churn_data(df)
+    return segment_summary
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
-from sklearn.metrics import roc_auc_score, f1_score
 
-def train_churn_models(X_train, X_test, y_train, y_test):
+def plot_churn_analysis(df, segment_summary):
+    segment_order = ["High", "Medium", "Low"]
 
-    neg = sum(y_train == 0)
-    pos = sum(y_train == 1)
-    scale_pos_weight = neg / pos
+    fig, axes = plt.subplots(1, 3, figsize=(14, 5))
+    fig.suptitle("RFM Churn Risk Analysis", fontsize=14, fontweight="bold")
 
-    models = {
-        "Logistic": LogisticRegression(
-            max_iter=500,
-            class_weight="balanced"
-        ),
-        "RandomForest": RandomForestClassifier(
-            n_estimators=200,
-            class_weight="balanced"
-        ),
-        "XGBoost": XGBClassifier(
-            n_estimators=200,
-            scale_pos_weight=scale_pos_weight,
-            eval_metric="logloss"
-        )
-    }
+    # 1. Churn Risk Band Distribution
+    risk_counts = df["churn_risk"].value_counts()[segment_order]
+    colors = ["#e74c3c", "#f39c12", "#2ecc71"]
+    axes[0].bar(risk_counts.index, risk_counts.values, color=colors)
+    axes[0].set_title("Churn Risk Band Distribution")
+    axes[0].set_xlabel("Churn Risk")
+    axes[0].set_ylabel("Customer Count")
+    for i, v in enumerate(risk_counts.values):
+        axes[0].text(i, v + 5, str(v), ha="center", fontsize=9)
 
-    results = {}
+    # 2. Composite RFM Score Histogram
+    axes[1].hist(df["rfm_risk_score"], bins=range(3, 11), color="#3498db",
+                 edgecolor="white", rwidth=0.8, align="left")
+    axes[1].set_title("Composite RFM Risk Score Distribution")
+    axes[1].set_xlabel("RFM Risk Score (3=High Risk, 9=Low Risk)")
+    axes[1].set_ylabel("Customer Count")
+    axes[1].set_xticks(range(3, 10))
 
-    for name, model in models.items():
-        model.fit(X_train, y_train)
-        preds = model.predict(X_test)
-        prob = model.predict_proba(X_test)[:, 1]
+    # 3. Average Monetary Value by Risk Band
+    avg_monetary = segment_summary.set_index("churn_risk")["avg_monetary"][segment_order]
+    axes[2].bar(avg_monetary.index, avg_monetary.values, color=colors)
+    axes[2].set_title("Avg. Monetary Value by Churn Risk Band")
+    axes[2].set_xlabel("Churn Risk")
+    axes[2].set_ylabel("Avg. Total Spend (BRL)")
 
-        results[name] = {
-            "ROC_AUC": roc_auc_score(y_test, prob),
-            "F1": f1_score(y_test, preds)
-        }
+    plt.tight_layout()
+    plt.show()
 
-    return results
 
-print(train_churn_models(X_train, X_test, y_train, y_test))
+def save_churn_scores_to_db(scored_df, model_version="rfm_v1"):
+    """
+    Saves the computed RFM scores and risk bands to customer_churn_prediction.
+    """
+    engine = get_db_engine()
+
+    db_df = scored_df[[
+        "customer_unique_id", "recency", "frequency", "monetary",
+        "r_score", "f_score", "m_score", "rfm_risk_score", "churn_risk"
+    ]].copy()
+
+    db_df["model_version"] = model_version
+    db_df["scored_at"] = datetime.now()
+
+    try:
+        db_df.to_sql("customer_churn_prediction", engine, if_exists="replace", index=False)
+        print(f"Successfully saved {len(db_df)} scored customers to DB.")
+    except Exception as e:
+        print(f"Error saving to DB: {e}")
+
+
+if __name__ == "__main__":
+    df = load_and_validate()
+
+    segment_summary = print_segment_summary(df)
+    plot_churn_analysis(df, segment_summary)
+
+    save_churn_scores_to_db(df)
+    print("\nDone. Use rfm_risk_score and churn_risk columns in the Decision Engine.")

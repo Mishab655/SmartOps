@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def build_category_sales_forecasting_dataset(
+def build_sales_forecasting_dataset(
     orders,
     order_items,
     products,
