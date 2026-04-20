@@ -6,6 +6,7 @@ statsmodels
 prophet
 xgboost
 unidecode
+fastapi
 
 # Database
 sqlalchemy
