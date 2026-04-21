@@ -19,7 +19,7 @@ def ingest_knowledge_base():
     print(f"Loading documents from {kb_dir}...")
     
     # Load txt and pdfs
-    txt_loader = DirectoryLoader(kb_dir, glob="**/*.txt", loader_cls=TextLoader)
+    txt_loader = DirectoryLoader(kb_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs={'encoding': 'utf-8'})
     pdf_loader = DirectoryLoader(kb_dir, glob="**/*.pdf", loader_cls=PyPDFLoader)
     
     docs = []

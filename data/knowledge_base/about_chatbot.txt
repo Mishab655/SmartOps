@@ -1,16 +1,59 @@
-E-Commerce Assistant Chatbot - System Info
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
 
-OVERVIEW
-This chatbot is a strategic e-commerce business assistant designed for internal business analysts and management teams. Its primary function is to analyze e-commerce data and assist in making data-driven strategic business decisions. 
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
 
-CORE CAPABILITIES
-The system performs business intelligence tasks by delegating to specialized internal agents:
-1. Sales Forecasting: Predicts future sales trends for specific product categories.
-2. Sentiment Analysis: Analyzes customer reviews and feedback to determine product sentiment scores.
-3. Churn Prediction: Identifies high-risk customers likely to leave and predicts churn risk.
-4. Database Querying: Queries the live SQL database to retrieve raw operational metrics, customer data, and system analytics.
-5. Strategic Decision Engine: Analyzes combined metrics (like forecast and sentiment) to trigger specific internal business rules and automated strategy proposals.
+### System Functionality
 
-LIMITATIONS
-- This tool is for internal data analysis only. It does not perform customer-facing actions, process payments, or handle external customer support tickets.
-- It relies strictly on the structured data available in the current e-commerce database.
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.
