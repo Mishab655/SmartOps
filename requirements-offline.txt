@@ -1,0 +1,10 @@
+# Offline Training & Data Processing
+pandas
+numpy
+matplotlib
+scikit-learn
+statsmodels
+prophet
+xgboost
+unidecode
+pypdf
