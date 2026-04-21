@@ -1,0 +1,16 @@
+E-Commerce Assistant Chatbot - System Info
+
+OVERVIEW
+This chatbot is a strategic e-commerce business assistant designed for internal business analysts and management teams. Its primary function is to analyze e-commerce data and assist in making data-driven strategic business decisions. 
+
+CORE CAPABILITIES
+The system performs business intelligence tasks by delegating to specialized internal agents:
+1. Sales Forecasting: Predicts future sales trends for specific product categories.
+2. Sentiment Analysis: Analyzes customer reviews and feedback to determine product sentiment scores.
+3. Churn Prediction: Identifies high-risk customers likely to leave and predicts churn risk.
+4. Database Querying: Queries the live SQL database to retrieve raw operational metrics, customer data, and system analytics.
+5. Strategic Decision Engine: Analyzes combined metrics (like forecast and sentiment) to trigger specific internal business rules and automated strategy proposals.
+
+LIMITATIONS
+- This tool is for internal data analysis only. It does not perform customer-facing actions, process payments, or handle external customer support tickets.
+- It relies strictly on the structured data available in the current e-commerce database.

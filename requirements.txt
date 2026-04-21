@@ -1,17 +1,23 @@
-pandas
-numpy
-matplotlib
-scikit-learn
-statsmodels
-prophet
-xgboost
-unidecode
+# Web Framework & Frontend
 fastapi
+uvicorn
+pydantic
+streamlit
+requests
 
 # Database
 sqlalchemy
 psycopg2-binary
 
-# Environment / secrets management
+# Environment / Secrets Management
 python-dotenv
+
+# LLM / LangChain
 langchain_groq
+langchain-community
+langchain-text-splitters
+
+chromadb
+langchain-chroma
+langchain-huggingface
+sentence-transformers
