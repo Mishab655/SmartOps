@@ -11,6 +11,9 @@ Schema:
     "time_range": "a specific time range (or empty string)",
     "requires_decision": true or false
 }}
+Rules:
+- If the user asks a meta-question about how the chatbot works, its architecture, or the datasets it is built on, YOU MUST classify the intent as 'general'.
+
 User Query: "{question}"
 Return ONLY valid JSON.
 """

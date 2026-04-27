@@ -1,5 +1,8 @@
 import re
 from sqlalchemy import text
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from backend.core.db import get_engine
 from backend.core.schema_loader import get_db_schema
 
@@ -8,7 +11,7 @@ class RetrievalAgent:
         self.engine = get_engine()
         self.llm = llm
 
-    def run(self, question):
+    def generate_sql(self, question):
         schema = get_db_schema()
         prompt = f"""
 You are a data analyst.
@@ -29,6 +32,10 @@ User Question:
         match = re.search(r"```(?:sql)?\s*(.*?)\s*```", sql_query, re.DOTALL | re.IGNORECASE)
         if match:
             sql_query = match.group(1).strip()
+        return sql_query
+
+    def run(self, question):
+        sql_query = self.generate_sql(question)
             
         if not sql_query.upper().startswith("SELECT"):
             return "Error: Could not generate a safe SELECT query."

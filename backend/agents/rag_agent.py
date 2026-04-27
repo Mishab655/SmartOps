@@ -18,8 +18,8 @@ class RagAgent:
                 embedding_function=self.embeddings
             )
             
-            # Retrieve top 3 chunks
-            docs = vectorstore.similarity_search(question, k=3)
+            # Retrieve top 5 chunks
+            docs = vectorstore.similarity_search(question, k=5)
             
             if not docs:
                 return "No relevant information found in the knowledge base."

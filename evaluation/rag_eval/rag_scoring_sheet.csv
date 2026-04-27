@@ -1,0 +1,1477 @@
+Question,Expected Keywords,Retrieved Context,Generated Answer,Retrieval Success,Relevance (1-5),Faithfulness (1-5)
+What is this chatbot?,"AI system,ecommerce,decision intelligence","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**SmartOps Business Advisor Overview**
+
+The SmartOps Business Advisor is a cutting-edge AI-driven decision intelligence system designed for e-commerce analytics. It leverages pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+**Key Features and Functionality**
+
+The system combines the following key components:
+
+1. **AI-driven Decision Intelligence**: Interprets user queries using LLMs and constructs an execution pipeline to retrieve relevant insights.
+2. **Precomputed Outputs**: Retrieves precomputed outputs stored in PostgreSQL to ensure reliability, speed, and eliminate risks of LLM hallucination.
+3. **Machine Learning Layer**: Utilizes pre-trained models for sales forecasting, sentiment analysis, churn prediction, and decision engine.
+4. **Dataset Information**: Built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset containing orders, order items, customers, products, reviews, and sellers.
+
+**Architecture Strength**
+
+The system's modular design separates computation and reasoning, ensuring scalability, interpretability, and production readiness. This design includes:
+
+1. **Models**: Generate predictions offline.
+2. **Database**: Stores structured intelligence.
+3. **Agents**: Retrieve and orchestrate.
+4. **LLM**: Interprets and communicates.
+
+**Purpose in RAG**
+
+The SmartOps Business Advisor is designed to answer meta-questions about its own architecture and capabilities, providing accurate and context-aware explanations.
+
+**Reason**
+
+The SmartOps Business Advisor is a powerful tool for e-commerce analytics, leveraging AI-driven decision intelligence and pre-trained machine learning models to deliver actionable insights. Its modular design ensures scalability, interpretability, and production readiness, making it an ideal solution for businesses seeking to optimize their operations and drive growth.
+
+**Reasoning**
+
+The system's architecture and functionality are designed to address the complexities of e-commerce analytics, providing a comprehensive solution for businesses to make data-driven decisions. By leveraging precomputed outputs, pre-trained models, and a structured database, the SmartOps Business Advisor ensures reliability, speed, and accuracy in its insights, making it an essential tool for businesses seeking to stay ahead in the competitive e-commerce landscape.",False,5,5
+What machine learning models are used?,"ARIMA,sentiment,churn","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Machine Learning Models Used in SmartOps Business Advisor**
+
+The SmartOps Business Advisor utilizes a combination of pre-trained machine learning models to deliver actionable business insights. The models used include:
+
+1. **ARIMA-based Time Series Predictions**: For sales forecasting, the system employs ARIMA (AutoRegressive Integrated Moving Average) models to predict future sales trends.
+2. **Aggregated Review Scoring and NLP**: Sentiment analysis is performed using natural language processing (NLP) techniques to analyze customer reviews and ratings.
+3. **Customer Segmentation using Behavioral Patterns**: Churn prediction is achieved through customer segmentation based on behavioral patterns.
+4. **Rule-based Decision Engine**: The decision engine combines all signals into business actions using a rule-based system.
+
+**Reason**
+
+The use of these machine learning models enables the SmartOps Business Advisor to provide accurate and actionable business insights. The models are pre-trained and stored in PostgreSQL, ensuring reliability, speed, and eliminating risks of model hallucination in core business logic. The modular design of the system, separating computation and reasoning, ensures scalability, interpretability, and production readiness.
+
+**Reasoning**
+
+The selection of these machine learning models is based on the system's architecture and the requirements of the e-commerce analytics use case. The models are chosen for their ability to provide accurate predictions and insights, while also being scalable and interpretable. The use of pre-trained models and a rule-based decision engine ensures that the system can provide reliable and accurate business insights, while also being able to adapt to changing business requirements.",True,5,5
+What dataset is the system built on?,"Olist,Brazilian","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Dataset Used by the System**
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. This dataset contains various tables, including:
+
+- Orders: timestamps, status, and delivery information
+- Order Items: product-level transaction details
+- Customers: unique IDs and location data
+- Products: categories and product information
+- Reviews: customer ratings and textual feedback
+- Sellers: seller metadata
+
+**Reason**
+
+The system's architecture is designed to leverage the strengths of pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights. The use of the Olist E-commerce Dataset allows the system to support multi-dimensional analysis, including time-based sales trends, category-level performance, customer behavior modeling, and review-driven sentiment insights.
+
+**Reasoning**
+
+The system's reliance on a precomputed dataset ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic. By separating computation and reasoning, the system achieves scalability, interpretability, and production readiness. The use of a vector database, such as ChromaDB, enables the system to retrieve relevant documentation and answer meta-questions about its own architecture and capabilities.",True,5,5
+How does the architecture ensure speed and reliability?,"precomputed,PostgreSQL,offline","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Result:**
+
+The architecture of the SmartOps Business Advisor ensures speed and reliability through a modular design that separates computation and reasoning. This approach enables the system to:
+
+1. Generate predictions offline using pre-trained machine learning models.
+2. Store structured intelligence in a database for efficient retrieval.
+3. Use agents to retrieve and orchestrate relevant insights.
+4. Leverage a large language model (LLM) to interpret and communicate results.
+
+**Reason:**
+
+The system's architecture is designed to ensure speed and reliability by:
+
+1. **Eliminating real-time computation**: Agents do not compute results in real-time, instead, they fetch precomputed outputs stored in PostgreSQL, reducing the risk of errors and improving response times.
+2. **Using pre-trained models**: Pre-trained machine learning models are used to generate predictions, reducing the need for complex computations and improving accuracy.
+3. **Storing structured intelligence**: The system stores structured intelligence in a database, making it easily accessible and reducing the need for complex queries.
+4. **Modular design**: The modular design of the system allows for scalability, interpretability, and production readiness, ensuring that the system can adapt to changing business needs.
+
+By separating computation and reasoning, the SmartOps Business Advisor is able to provide fast and accurate responses to user queries, making it an effective tool for e-commerce analytics.",True,5,5
+What does the decision engine do?,"rule-based,business actions","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Decision Engine Overview**
+
+The Decision Engine is a critical component of the SmartOps Business Advisor, an AI-driven decision intelligence system designed for e-commerce analytics. It plays a vital role in delivering actionable business insights through a conversational interface.
+
+**Functionality**
+
+The Decision Engine is a rule-based system that combines various signals, including predictions from pre-trained models, to generate business actions. These models include:
+
+* Sales Forecasting: ARIMA-based time series predictions
+* Sentiment Analysis: Aggregated review scoring and NLP
+* Churn Prediction: Customer segmentation using behavioral patterns
+
+**Purpose**
+
+The Decision Engine's primary purpose is to provide a structured and reliable way to make business decisions by leveraging the insights generated by the pre-trained models. By combining these signals, the Decision Engine enables the SmartOps Business Advisor to provide accurate and actionable recommendations to users.
+
+**Reason**
+
+The Decision Engine is designed to ensure that business decisions are based on a comprehensive analysis of various factors, rather than relying on a single prediction or signal. This approach helps to minimize the risk of errors and ensures that decisions are informed by a deep understanding of the business data and analytics.
+
+**Reasoning**
+
+The Decision Engine's rule-based approach allows for a high degree of flexibility and customization, enabling businesses to tailor the system to their specific needs and requirements. Additionally, the use of pre-trained models and structured databases ensures that the system is scalable, interpretable, and production-ready, making it an ideal solution for e-commerce analytics and decision-making.",True,5,5
+How does the system handle general questions?,"RAG,ChromaDB,MiniLM","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**System Handling of General Questions**
+
+The system is designed to handle general questions by utilizing a Retrieval-Augmented Generation (RAG) agent. When a user submits a query that is deemed general or out-of-domain, the RAG agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+**Result**
+
+The system returns a response that is synthesized from the retrieved documentation, providing accurate and context-aware explanations about its own architecture and capabilities.
+
+**Reason**
+
+The system's ability to handle general questions is made possible by its modular design, which separates computation and reasoning. This design allows the system to generate predictions offline using pre-trained models, store structured intelligence in a database, and retrieve and orchestrate insights using agents. The LLM interprets and communicates the results, providing a conversational interface for users.
+
+**Key Takeaways**
+
+* The system uses a RAG agent to handle general questions by querying a vector database.
+* The RAG agent retrieves relevant documentation using semantic embeddings.
+* The system returns a synthesized response that provides accurate and context-aware explanations about its own architecture and capabilities.
+* The modular design of the system enables its ability to handle general questions and provide accurate responses.",True,5,5
+What information is stored about customers?,"unique IDs,location data","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Customer Information Stored**
+
+The SmartOps Business Advisor system stores various types of customer information, including:
+
+- Unique customer IDs
+- Location data
+
+This information is stored in the PostgreSQL database, which is accessed by agents to retrieve relevant insights.
+
+**Reason**
+
+The system stores customer information to support various business functions, such as customer behavior modeling, churn prediction, and sales forecasting. This data is used to generate predictions and insights that inform business decisions.
+
+**Reasoning**
+
+The system's architecture is designed to separate computation and reasoning, with models generating predictions offline and the database storing structured intelligence. This modular design ensures scalability, interpretability, and production readiness. The customer information stored in the database is used to support these business functions and inform decision-making.",True,5,5
+Does the LLM compute results in real time?,"No,precomputed","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Answer:** The LLM does not compute results in real-time.
+
+**Reason:** According to the system's architecture, when a user submits a query, the LLM interprets the intent, but the specialized agents triggered to retrieve relevant insights do not compute results in real-time. Instead, they fetch precomputed outputs stored in PostgreSQL. This approach ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic. The system's modular design separates computation and reasoning, with models generating predictions offline, and agents retrieving and orchestrating the results.",True,5,5
+What kind of multi-dimensional analysis is supported?,"time-based,category,customer behavior,sentiment","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Multi-Dimensional Analysis Supported**
+
+The SmartOps Business Advisor supports various types of multi-dimensional analysis, enabling e-commerce businesses to gain deeper insights into their operations. These analyses include:
+
+* Time-based sales trends: Understanding sales patterns over time to inform business decisions.
+* Category-level performance: Analyzing sales and performance metrics by product category to optimize inventory and marketing strategies.
+* Customer behavior modeling: Identifying patterns in customer behavior to improve customer experience and retention.
+* Review-driven sentiment insights: Analyzing customer reviews to gauge sentiment and identify areas for improvement.
+
+**Reason**
+
+The system's architecture, which combines pre-trained machine learning models, structured databases, and large language models (LLMs), enables the retrieval and analysis of various data dimensions. The use of precomputed outputs stored in PostgreSQL ensures reliability and speed, while the LLM interprets and communicates the results in a human-readable format. The system's modular design, separating computation and reasoning, ensures scalability, interpretability, and production readiness.",True,5,5
+What is the role of the generator module?,"synthesizes,structured,human-readable","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Role of the Generator Module:**
+
+The generator module plays a crucial role in the SmartOps Business Advisor system by synthesizing a structured, human-readable response from the retrieved data. Its primary function is to transform complex insights into a clear and concise format that is easily understandable by users.
+
+**Key Responsibilities:**
+
+- Synthesize structured responses from retrieved data
+- Ensure clarity and concision in the response
+- Enable users to easily understand complex insights
+
+**Reason:**
+
+The generator module is essential in the SmartOps system as it bridges the gap between the complex data retrieved by the agents and the user's need for clear and actionable insights. By synthesizing a structured response, the generator module enables users to quickly grasp the key takeaways from the data, making it an integral component of the system's decision intelligence capabilities.
+
+**Recommendation:**
+
+To maximize the effectiveness of the generator module, it is essential to ensure that the retrieved data is accurate, relevant, and well-structured. This can be achieved by optimizing the agent's data retrieval process and implementing robust data validation mechanisms. Additionally, the generator module should be fine-tuned to adapt to different user queries and preferences, ensuring that the response is always clear, concise, and relevant to the user's needs.",True,5,5
+Which database is used for the vector search?,ChromaDB,"Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Vector Search Database:**
+
+The vector search database used by the SmartOps Business Advisor is ChromaDB.
+
+**Result:**
+
+ChromaDB is utilized for vector search in the SmartOps Business Advisor system. This database is specifically designed to store and retrieve relevant documentation based on semantic embeddings generated by the MiniLM model.
+
+**Reason:**
+
+The system's architecture separates computation and reasoning, with models generating predictions offline and a database storing structured intelligence. The use of ChromaDB for vector search enables the system to efficiently retrieve relevant documentation and provide accurate, context-aware explanations about its own architecture and capabilities. This is particularly useful for answering meta-questions such as ""How does SmartOps work?"" and ""What models are used?""",True,5,5
+What embedding model does the RAG system use?,MiniLM,"Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Answer:** The RAG system used by the SmartOps Business Advisor employs the MiniLM model for semantic embeddings.
+
+**Reason:**
+The system's architecture and functionality document explicitly states that the RAG agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation for general or out-of-domain queries. This indicates that the MiniLM model is utilized for embedding purposes within the RAG system.",True,5,5
+How is sales forecasting implemented?,"ARIMA,time series","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Sales Forecasting Implementation**
+
+Sales forecasting is a critical component of e-commerce business strategy, enabling companies to anticipate demand, optimize inventory, and make informed decisions. In the context of SmartOps Business Advisor, sales forecasting is implemented using an ARIMA-based time series prediction model.
+
+**How it Works**
+
+The sales forecasting model is pre-trained and stored in PostgreSQL, a structured database that provides reliable and efficient access to the model's outputs. When a user queries the system for sales forecasting insights, the planner constructs an execution pipeline that triggers the sales forecasting agent to retrieve the precomputed outputs from PostgreSQL.
+
+**Key Components**
+
+1. **ARIMA Model**: The ARIMA (AutoRegressive Integrated Moving Average) model is a widely used time series forecasting technique that analyzes historical sales data to predict future trends.
+2. **Precomputed Outputs**: The sales forecasting model generates predictions offline, which are then stored in PostgreSQL for efficient retrieval.
+3. **Agent-Driven Retrieval**: The sales forecasting agent retrieves the precomputed outputs from PostgreSQL and passes them to the generator module for synthesis into a human-readable response.
+
+**Reason**
+
+The sales forecasting implementation in SmartOps Business Advisor is designed to provide accurate and reliable predictions, leveraging the strengths of the ARIMA model and the efficiency of PostgreSQL. By separating computation and reasoning, the system ensures scalability, interpretability, and production readiness, making it an effective tool for e-commerce businesses to inform their sales strategies.",True,5,5
+What are some of the product categories in the dataset?,"health_beauty,electronics,furniture_decor","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Product Categories in the Dataset**
+
+The product categories in the Olist E-commerce Dataset include:
+
+- Health and Beauty
+- Electronics
+- Furniture and Decor
+- Toys
+- Fashion and Shoes
+
+**Reason**
+
+The product categories are listed in the ""Products"" section of the dataset information, which is described in the Knowledge Base Document. This section outlines the various tables and data points that make up the Olist E-commerce Dataset, including the ""Products"" table, which contains information on product categories.",True,5,5
+How does the architecture separate computation and reasoning?,"models offline,database,agents retrieve,LLM interprets","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Answer:** The architecture of SmartOps Business Advisor separates computation and reasoning through a modular design, ensuring scalability, interpretability, and production readiness.
+
+**Explanation:** The system uses pre-trained machine learning models to generate predictions offline, which are then stored in a structured database. Specialized agents retrieve and orchestrate these predictions, while a large language model (LLM) interprets and communicates the results to the user. This separation of computation and reasoning enables the system to provide accurate and context-aware responses to user queries.
+
+**Reason:**
+
+The separation of computation and reasoning is achieved through the following components:
+
+1. **Models**: Pre-trained machine learning models generate predictions offline, eliminating the need for real-time computation and reducing the risk of LLM hallucination in core business logic.
+2. **Database**: A structured database stores the precomputed outputs, ensuring reliability and speed.
+3. **Agents**: Specialized agents retrieve and orchestrate the predictions, enabling the system to provide accurate and context-aware responses.
+4. **LLM**: The large language model interprets and communicates the results to the user, providing a conversational interface.
+
+This modular design enables SmartOps to scale, provide interpretable results, and ensure production readiness, making it an effective solution for e-commerce analytics.",False,5,5
+What does the planner do in the system?,constructs execution pipeline,"Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Planner's Role in the System:**
+
+The planner in the SmartOps Business Advisor system is responsible for constructing an execution pipeline based on the user's intent. This pipeline is triggered when a user submits a query, and it enables the system to retrieve relevant insights from precomputed outputs stored in PostgreSQL.
+
+**Key Functions:**
+
+1. **Intent Interpretation**: The planner interprets the user's intent using a Large Language Model (LLM).
+2. **Execution Pipeline Construction**: Based on the intent, the planner constructs an execution pipeline that triggers specialized agents to retrieve relevant insights.
+3. **Insight Retrieval**: The agents fetch precomputed outputs from PostgreSQL, ensuring reliability, speed, and eliminating risks of LLM hallucination in core business logic.
+
+**Reason:**
+
+The planner plays a crucial role in the system's functionality, enabling it to provide accurate and actionable business insights through a conversational interface. By constructing an execution pipeline, the planner ensures that the system retrieves relevant insights from precomputed outputs, making it a critical component of the SmartOps Business Advisor's decision intelligence system.
+
+**Recommendation:**
+
+To further optimize the planner's performance, consider implementing additional features, such as:
+
+1. **Intent-based routing**: Route user queries to the most relevant agents based on intent.
+2. **Pipeline optimization**: Continuously monitor and optimize the execution pipeline to ensure efficient insight retrieval.
+3. **Agent training**: Regularly train and update agents to ensure they can retrieve accurate and relevant insights from precomputed outputs.",False,5,5
+Are predictions generated in real-time?,"offline,precomputed","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Answer:** No, predictions generated by the SmartOps Business Advisor are not computed in real-time.
+
+**Reason:** The system relies on pre-trained machine learning models and stored outputs in PostgreSQL to deliver predictions. Agents fetch these precomputed outputs instead of computing results in real-time to ensure reliability, speed, and minimize the risk of LLM hallucination in core business logic. This approach allows for scalability, interpretability, and production readiness.",True,5,5
+What language model provider interprets the user intent?,Groq,"Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Interpretation of User Intent**
+
+Based on the provided execution plan and parsed intent, the system has determined that the user's intent is ""general."" This means that the user's query does not fall under a specific domain or category, and the system will rely on a more general approach to provide a response.
+
+**Language Model Provider**
+
+The language model provider that interprets the user intent is Groq. According to the knowledge base document, Groq is used to interpret intent using a large language model (LLM). This LLM is integrated into the system to enable the chatbot to understand the user's query and provide a relevant response.
+
+**Reason**
+
+The reason for selecting Groq as the language model provider is due to its ability to accurately interpret user intent and provide a general response. The system's architecture is designed to separate computation and reasoning, with models generating predictions offline and agents retrieving and orchestrating the results. The use of Groq's LLM enables the system to communicate effectively with the user and provide accurate, context-aware explanations about its own architecture and capabilities.
+
+**Recommendation**
+
+Based on the system's architecture and the use of Groq's LLM, it is recommended to continue using this language model provider for interpreting user intent. The system's modular design and scalability ensure that it can handle a wide range of user queries and provide accurate responses.",True,5,5
+What details are stored about reviews?,"ratings,textual feedback","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Summary of Review Data Storage**
+
+The SmartOps Business Advisor stores the following details about reviews:
+
+- Customer ratings
+- Textual feedback from customers
+
+**Reason**
+
+This information is stored in the system's database as part of the Olist E-commerce Dataset, which is a real-world Brazilian marketplace dataset. The dataset contains various tables, including the ""Reviews"" table, which stores customer ratings and textual feedback. This data is used to support multi-dimensional analysis, such as review-driven sentiment insights, and is accessed by agents to provide actionable business insights through the conversational interface.",True,5,5
+Why is this document in the vector database?,"meta-questions,explain architecture,context-aware","Source (D:\Brocamp\Week 50\ag\backend\scripts\..\..\data\knowledge_base\about_chatbot.txt):
+**SmartOps Business Advisor – Knowledge Base Document (for RAG Integration)**
+
+The SmartOps Business Advisor is an AI-driven, multi-agent decision intelligence system designed for e-commerce analytics. It combines pre-trained machine learning models, structured databases, and large language models (LLMs) to deliver actionable business insights through a conversational interface.
+
+### System Functionality
+
+When a user submits a query, the system first interprets intent using an LLM (via Groq). Based on this intent, a planner constructs an execution pipeline. Specialized agents are then triggered to retrieve relevant insights. These agents do not compute results in real time; instead, they fetch precomputed outputs stored in PostgreSQL. This ensures reliability, speed, and eliminates risks of LLM hallucination in core business logic.
+
+The retrieved data is passed to a generator module, which synthesizes a structured, human-readable response. For general or out-of-domain queries, a RAG (Retrieval-Augmented Generation) agent queries a vector database (ChromaDB) using semantic embeddings (MiniLM) to retrieve relevant documentation.
+
+### Machine Learning Layer
+
+The system uses pre-trained models:
+
+* **Sales Forecasting**: ARIMA-based time series predictions
+* **Sentiment Analysis**: Aggregated review scoring and NLP
+* **Churn Prediction**: Customer segmentation using behavioral patterns
+* **Decision Engine**: Rule-based system combining all signals into business actions
+
+All predictions are stored in PostgreSQL and accessed by agents.
+
+### Dataset Information
+
+The system is built on the Olist E-commerce Dataset, a real-world Brazilian marketplace dataset. It contains:
+
+* **Orders**: timestamps, status, delivery info
+* **Order Items**: product-level transaction details
+* **Customers**: unique IDs and location data
+* **Products**: categories (e.g., health_beauty, electronics, furniture_decor, toys, fashion_shoes, etc.)
+* **Reviews**: customer ratings and textual feedback
+* **Sellers**: seller metadata
+
+The dataset supports multi-dimensional analysis such as:
+
+* time-based sales trends
+* category-level performance
+* customer behavior modeling
+* review-driven sentiment insights
+
+### Architecture Strength
+
+SmartOps separates computation and reasoning:
+
+* Models → generate predictions offline
+* Database → stores structured intelligence
+* Agents → retrieve and orchestrate
+* LLM → interprets and communicates
+
+This modular design ensures scalability, interpretability, and production readiness.
+
+### Purpose in RAG
+
+This document is stored in the vector database to help the system answer meta-questions such as:
+
+* “How does SmartOps work?”
+* “What models are used?”
+* “What dataset is this based on?”
+
+It enables the chatbot to provide accurate, context-aware explanations about its own architecture and capabilities.","**Document Retrieval Explanation**
+
+The document in question is stored in the vector database to facilitate the chatbot's ability to provide accurate and context-aware explanations about its own architecture and capabilities. This is achieved through the Retrieval-Augmented Generation (RAG) agent, which queries the vector database using semantic embeddings to retrieve relevant documentation.
+
+**Reason**
+
+The document is stored in the vector database to support the chatbot's meta-question answering capabilities. This includes answering questions such as ""How does SmartOps work?"" and ""What dataset is this based on?"" By storing relevant documentation in the vector database, the chatbot can quickly retrieve and provide accurate information to users, enhancing their overall experience and trust in the system.
+
+**Key Takeaways**
+
+* The document is stored in the vector database to support the chatbot's meta-question answering capabilities.
+* The RAG agent uses semantic embeddings to query the vector database and retrieve relevant documentation.
+* This enables the chatbot to provide accurate and context-aware explanations about its own architecture and capabilities.",True,5,5
