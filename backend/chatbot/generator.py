@@ -33,8 +33,12 @@ The parsed intent was: {json.dumps(parsed_query)}
 Here is the summarized data returned by the agents:
 {summary}
 
-Explain the result in simple, professional business language. 
-IMPORTANT: ALWAYS structure your final answer to include a clear "Reason" or "Reasoning" section.
+Explain the result to the user.
+CRITICAL INSTRUCTIONS:
+1. Be extremely concise, short, and direct.
+2. Only output the necessary data that directly answers the question. Do not add unwanted descriptions.
+3. Do NOT include a lengthy "Reason" or "Reasoning" section unless explicitly requested.
+4. Keep the tone friendly and user-centric.
 """
     response = llm.invoke(prompt)
     return response.content
