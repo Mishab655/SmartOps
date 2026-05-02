@@ -3,7 +3,7 @@ name: Deploy SmartOps to AWS
 on:
   push:
     branches:
-      - deployment
+      - main
 
 jobs:
   deploy-frontend:
