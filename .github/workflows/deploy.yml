@@ -1,0 +1,41 @@
+name: Deploy SmartOps to AWS
+
+on:
+  push:
+    branches:
+      - deployment
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Change this if your bucket is in another region
+
+      - name: Deploy Frontend to S3
+        run: |
+          aws s3 cp frontend/index.html s3://${{ secrets.AWS_S3_BUCKET_NAME }}/index.html --cache-control "max-age=0, no-cache"
+          # Optional: Invalidate CloudFront cache if you set up CloudFront
+          # aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DIST_ID }} --paths "/*"
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }} # Usually 'ubuntu' for Ubuntu AMIs, or 'ec2-user' for Amazon Linux
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Assuming you cloned your repo into ~/SmartOps on the EC2 instance
+            cd ~/SmartOps
+            git pull origin main
+            docker-compose up -d --build
