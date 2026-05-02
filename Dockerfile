@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Install PyTorch CPU version first to save massive download time and space
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
 # Install python dependencies
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
