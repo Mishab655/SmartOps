@@ -1,41 +1,58 @@
-name: Deploy SmartOps to AWS
+name: Deploy SmartOps to GCP
 
 on:
   push:
     branches:
       - main
 
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1 # Change if you prefer another region
+  REPO_NAME: smartops-repo
+  IMAGE_NAME: smartops-backend
+  SERVICE_NAME: smartops-backend
+  BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+
 jobs:
-  deploy-frontend:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # Change this if your bucket is in another region
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Deploy Frontend to S3
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker to use Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      - name: Build and Push Backend Docker Image
         run: |
-          aws s3 cp frontend/index.html s3://${{ secrets.AWS_S3_BUCKET_NAME }}/index.html --cache-control "max-age=0, no-cache"
-          # Optional: Invalidate CloudFront cache if you set up CloudFront
-          # aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DIST_ID }} --paths "/*"
+          IMAGE_PATH="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          docker build -t $IMAGE_PATH .
+          docker push $IMAGE_PATH
 
-  deploy-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Deploy Backend to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }} # Usually 'ubuntu' for Ubuntu AMIs, or 'ec2-user' for Amazon Linux
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            # Assuming you cloned your repo into ~/SmartOps on the EC2 instance
-            cd ~/SmartOps
-            git pull origin main
-            docker-compose up -d --build
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.REGION }}
+          image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          # These environment variables will be injected directly into Cloud Run
+          env_vars: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+            LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}
+            LANGCHAIN_TRACING_V2=true
+            LANGCHAIN_PROJECT=SmartOps
+          flags: '--allow-unauthenticated'
+
+      - name: Deploy Frontend to Cloud Storage
+        run: |
+          gcloud storage cp frontend/index.html gs://${{ env.BUCKET_NAME }}/index.html
+          gcloud storage objects update gs://${{ env.BUCKET_NAME }}/index.html --cache-control="public, max-age=0, no-cache"

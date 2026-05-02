@@ -5,9 +5,6 @@ services:
     container_name: smartops_backend
     ports:
       - "8000:8000"
-    volumes:
-      # Mount the ChromaDB directory so vector data persists across container restarts
-      - ./data/chroma_db:/app/data/chroma_db
     env_file:
       - .env
     restart: unless-stopped

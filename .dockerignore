@@ -7,4 +7,6 @@ __pycache__
 frontend/
 evaluation/
 notebooks/
-data/
+data/ML_datasets/
+data/raw_datasets/
+data/knowledge_base/
