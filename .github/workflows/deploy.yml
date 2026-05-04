@@ -49,4 +49,4 @@ jobs:
             LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}
             LANGCHAIN_TRACING_V2=true
             LANGCHAIN_PROJECT=SmartOps
-          flags: '--allow-unauthenticated --port=8000'
+          flags: '--allow-unauthenticated --port=8000 --memory=1024Mi'
