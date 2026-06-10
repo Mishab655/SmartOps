@@ -1,5 +1,5 @@
 # SmartOps
-
+Live link: https://smart-ops-rosy.vercel.app/
 **SmartOps** is an AI-powered e-commerce chatbot and operational assistant designed to provide intelligent insights, data retrieval, and strategic decision-making capabilities. 
 
 It leverages an advanced multi-agent architecture to process user queries, interact with both structured (SQL) and unstructured (Vector) databases, and deliver actionable business intelligence.
