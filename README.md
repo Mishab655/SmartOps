@@ -99,10 +99,10 @@ The project includes a `notebooks` directory, which is used for data exploration
 
 ## Deployment
 
-- **Backend**: Hosted on Google Cloud Run for serverless container execution.
+- **Backend**: Hosted on Render as a Web Service.
 - **Frontend**: Deployed on Vercel for fast edge delivery.
 - **Database**: Cloud PostgreSQL managed via Supabase.
-- **CI/CD**: Fully automated pipelines using GitHub Actions.
+- **CI/CD**: Fully automated pipelines using Render and Vercel GitHub integrations.
 
 ## Contributing
 
