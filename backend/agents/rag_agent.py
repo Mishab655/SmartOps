@@ -1,6 +1,36 @@
 import os
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+import requests
 from langchain_chroma import Chroma
+from langchain_core.embeddings import Embeddings
+
+class CustomHFEmbeddings(Embeddings):
+    def __init__(self, api_key: str, model_name: str):
+        self.api_url = f"https://router.huggingface.co/hf-inference/models/{model_name}"
+        self.headers = {"Authorization": f"Bearer {api_key}"}
+
+    def _embed(self, texts):
+        response = requests.post(
+            self.api_url, 
+            headers=self.headers, 
+            json={"inputs": texts, "options": {"wait_for_model": True}}
+        )
+        if response.status_code != 200:
+            raise ValueError(f"HuggingFace API Error ({response.status_code}): {response.text}")
+        return response.json()
+
+    def embed_documents(self, texts):
+        res = self._embed(texts)
+        if isinstance(res, dict) and "error" in res:
+            raise ValueError(f"HuggingFace API Error: {res['error']}")
+        return res
+
+    def embed_query(self, text):
+        res = self._embed(text)
+        if isinstance(res, dict) and "error" in res:
+            raise ValueError(f"HuggingFace API Error: {res['error']}")
+        if isinstance(res, list) and len(res) > 0 and isinstance(res[0], list):
+            return res[0]
+        return res
 
 class RagAgent:
     def __init__(self):
@@ -11,10 +41,9 @@ class RagAgent:
         if not hf_token:
             raise ValueError("HF_TOKEN environment variable is not set. Required for RAG embeddings via API.")
             
-        self.embeddings = HuggingFaceInferenceAPIEmbeddings(
+        self.embeddings = CustomHFEmbeddings(
             api_key=hf_token, 
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-            api_url="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2"
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
         
     def run(self, question):
