@@ -13,7 +13,8 @@ class RagAgent:
             
         self.embeddings = HuggingFaceInferenceAPIEmbeddings(
             api_key=hf_token, 
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            api_url="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2"
         )
         
     def run(self, question):
