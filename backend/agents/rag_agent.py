@@ -5,7 +5,7 @@ from langchain_core.embeddings import Embeddings
 
 class CustomHFEmbeddings(Embeddings):
     def __init__(self, api_key: str, model_name: str):
-        self.api_url = f"https://router.huggingface.co/hf-inference/models/{model_name}"
+        self.api_url = f"https://router.huggingface.co/hf-inference/pipeline/feature-extraction/{model_name}"
         self.headers = {"Authorization": f"Bearer {api_key}"}
 
     def _embed(self, texts):
