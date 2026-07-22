@@ -1,12 +1,20 @@
 import os
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain_chroma import Chroma
 
 class RagAgent:
     def __init__(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         self.db_dir = os.path.join(base_dir, "../../data/chroma_db")
-        self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        
+        hf_token = os.environ.get("HF_TOKEN")
+        if not hf_token:
+            raise ValueError("HF_TOKEN environment variable is not set. Required for RAG embeddings via API.")
+            
+        self.embeddings = HuggingFaceInferenceAPIEmbeddings(
+            api_key=hf_token, 
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        )
         
     def run(self, question):
         if not os.path.exists(self.db_dir):
