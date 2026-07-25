@@ -827,8 +827,8 @@
   </div>
 
   <script>
-    // Backend API URL (Use 'http://127.0.0.1:8000/chat' for local testing, or your GCP Cloud Run URL once deployed)
-    const API_URL = 'http://127.0.0.1:8000/chat';
+    // Live GCP Cloud Run Backend URL
+    const API_URL = 'https://smartops-backend-591708275250.us-central1.run.app/chat';
 
     // State
     let chats = JSON.parse(localStorage.getItem('smartops_chats')) || [];
