@@ -38,13 +38,14 @@ class RagAgent:
         self.db_dir = os.path.join(base_dir, "../../data/chroma_db")
         
         hf_token = os.environ.get("HF_TOKEN")
-        if not hf_token:
-            raise ValueError("HF_TOKEN environment variable is not set. Required for RAG embeddings via API.")
-            
-        self.embeddings = CustomHFEmbeddings(
-            api_key=hf_token, 
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
-        )
+        if hf_token:
+            self.embeddings = CustomHFEmbeddings(
+                api_key=hf_token, 
+                model_name="sentence-transformers/all-MiniLM-L6-v2"
+            )
+        else:
+            from langchain_huggingface import HuggingFaceEmbeddings
+            self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         
     def run(self, question):
         if not os.path.exists(self.db_dir):

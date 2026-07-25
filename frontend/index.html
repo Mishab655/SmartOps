@@ -827,8 +827,8 @@
   </div>
 
   <script>
-    // Updated with the new live Render URL
-    const API_URL = 'https://smartops-backend-zybk.onrender.com/chat';
+    // Backend API URL (Use 'http://127.0.0.1:8000/chat' for local testing, or your GCP Cloud Run URL once deployed)
+    const API_URL = 'http://127.0.0.1:8000/chat';
 
     // State
     let chats = JSON.parse(localStorage.getItem('smartops_chats')) || [];
